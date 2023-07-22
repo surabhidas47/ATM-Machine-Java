@@ -1,15 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class OptionMenu {
 	Scanner menuInput = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
-	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
+
+	//here we are changing value t
+	HashMap<Integer, Account> data = new HashMap<>();
 
 	public void getLogin() throws IOException {
 		boolean end = false;
@@ -47,7 +47,8 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - Show all statements balance");
+				System.out.println(" Type 4 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -60,6 +61,11 @@ public class OptionMenu {
 					getSaving(acc);
 					break;
 				case 3:
+					System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
+
+					break;
+				case 4:
 					end = true;
 					break;
 				default:
@@ -112,6 +118,8 @@ public class OptionMenu {
 			}
 		}
 	}
+
+
 
 	public void getSaving(Account acc) {
 		boolean end = false;
@@ -177,9 +185,13 @@ public class OptionMenu {
 		int pin = menuInput.nextInt();
 		data.put(cst_no, new Account(cst_no, pin));
 		System.out.println("\nYour new account has been successfuly registered!");
+
+
 		System.out.println("\nRedirecting to login.............");
 		getLogin();
 	}
+
+
 
 	public void mainMenu() throws IOException {
 		data.put(952141, new Account(952141, 191904, 1000, 5000));
